@@ -1,76 +1,199 @@
 <!DOCTYPE html>
-<html lang="eng">
-    <head>
-        <meta charset="utf-8">
-        <title>Bootstrap</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    </head>
-
-
-    <body style="background-image: url(/assets/garden.JPG); background-size: cover; background-position: center bottom;">
-
-
-        <div style="padding: 36px"/>
-        <div style="display: flex; justify-content: center; align-content: center;">
-            <p style="font-size: 2.1rem; font-family: 'Times New Roman', Times, serif; color: black"> Hemeroholics </p>
-        </div>       
-        <div style="padding: auto; margin-top: 2px"> <!--TOP -->
-            <!--<img src="/assets/profilephoto.jpeg" style="border-radius: 15px; margin-left: 33%; width: 33%; height: 66%"> -->
-                <div style=" display: flex; justify-content: center; align-content: center;">
-                    <p style="font-size: 1.8rem; font-family: 'Times New Roman', Times, serif; color: black"> for the true daylily fanatics </p></div>
-                    <div style=" display: flex; justify-content: center; align-content: center;">
-                        <p style="font-size: 1.2rem; font-family: 'Times New Roman', Times, serif; color: black"> 
-                            ### </p></div>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemeroholics - For True Daylily Enthusiasts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #9a33b8;
+            --secondary-color: #6c757d;
+            --text-color: #e9ecef;
+            --background-color: #121212;
+            --card-bg: rgba(30, 30, 30, 0.8);
+            --button-hover: #7d2a94;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url(/assets/garden.JPG);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: -1;
+            min-height: 100vh;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 2rem 1rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .site-title {
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #9a33b8, #6370df);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #b8b8b8;
+        }
+        
+        .about-text {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .link-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .link-button {
+            display: block;
+            width: 100%;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-color) !important;
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(154, 51, 184, 0.8), rgba(99, 112, 223, 0.8));
+            border: none;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .link-button:hover {
+            background: linear-gradient(135deg, rgba(154, 51, 184, 0.9), rgba(99, 112, 223, 0.9));
+        }
+        
+        .link-description {
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            display: block;
+            color: #b8b8b8;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 3rem;
+            }
+            
+            .about-text {
+                padding: 2rem;
+            }
+            
+            .link-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="site-title">Hemeroholics</h1>
+            <p class="tagline">For the true daylily fanatics</p>
+        </header>
+        
+        <div class="about-text">
+            <p>We are passionate daylily enthusiasts leveraging data science, AI, and web development to make daylily breeding more accessible. Our mission is to empower breeders with tools for better informed decisions while ensuring resources are available to everyone, from beginners to experts.</p>
         </div>
         
-        <div style="background-color: rgba(0, 0, 0, 0.3); padding: 7% 10%; border-radius: 15px;"> <!-- LINK 1 -->
-            <a href="https://ricedaylilies.hemeroholics.com/" 
-            class="btn btn-primary btn-lg active" 
-            role="large-button" 
-            aria-pressed="true" 
-            style="background-color: rgba(103, 123, 215, 0.3); color: black; width: 100%; border: 2px solid black">
-            Rice Daylilies <br>
-            (my most advanced site)
-         </a></div>
-
-
-
-         <div style="padding: 5% 20%"> <!-- LINK 2 -->
-            <a href="mailto:lovetrinity315@gmail.com" 
-            class="btn btn-primary btn-lg active" 
-            role="large-button" 
-            aria-pressed="true" 
-            style="background-color: rgba(102, 102, 102, 0.2); color: black; width: 100%; border: 2px solid black; font-size: 1.5rem;">
-            Contact Me Via Email </a>
+        <div class="link-grid">
+            <div class="link-card">
+                <a href="https://ricedaylilies.hemeroholics.com/" class="link-button">
+                    Rice Daylilies
+                    <span class="link-description">My most advanced site</span>
+                </a>
+            </div>
+            
+            <div class="link-card">
+                <a href="mailto:lovetrinity315@gmail.com" class="link-button">
+                    <i class="bi bi-envelope-fill me-2"></i>Contact Me
+                    <span class="link-description">via Email</span>
+                </a>
+            </div>
+            
+            <div class="link-card">
+                <a href="https://hemeroholics.store/" class="link-button">
+                    <i class="bi bi-shop me-2"></i>Buy or Trade
+                    <span class="link-description">Shop my collection</span>
+                </a>
+            </div>
+            
+            <div class="link-card">
+                <a href="https://gallery.hemeroholics.com/" class="link-button">
+                    <i class="bi bi-images me-2"></i>My Collection
+                    <span class="link-description">View photo gallery</span>
+                </a>
+            </div>
         </div>
-
-        <div style="padding: 5% 20%"> <!-- LINK 3 -->
-            <a href="https://hemeroholics.store/" 
-            class="btn btn-primary btn-lg active" 
-            role="large-button" 
-            aria-pressed="true" 
-            style="background-color: rgba(102, 102, 102, 0.4); color: black; width: 100%; border: 2px solid black; font-size: 1.5rem;">
-            Buy or Trade with me </a>
-        </div>
-
-        <div style="padding: 5% 20%"> <!-- LINK 4 -->
-            <a href="https://gallery.hemeroholics.com/" 
-            class="btn btn-primary btn-lg active" 
-            role="large-button" 
-            aria-pressed="true" 
-            style="background-color: rgba(102, 102, 102, 0.6); color: black; width: 100%; border: 2px solid black; font-size: 1.5rem;">
-            My Collection</a>
-        </div>        
-
-        <div style="padding: 5% 2%;"> <!-- MORE DESCRIPTION-->
-            <div style=" display: flex; justify-content: center; align-content: center;">
-                    <p style="display: flex; justify-content: center; align-content: center;
-                        font-size: 1.4rem; color: black; font-family: 'Times New Roman', Times, serif;"> 
-                        ###</p></div>
-         </div>
-             
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    </body>
-</html> 
+        
+        <footer class="footer">
+            <p>© 2025 Hemeroholics - Cultivating beauty through data and passion</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
