@@ -712,14 +712,40 @@
         );
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-        // Newsletter subscribe handler (placeholder)
-        function handleSubscribe(e) {
+        // API base URL — update to your Railway domain after deploy
+        const API_BASE = window.location.hostname === 'localhost'
+            ? 'http://localhost:8000'
+            : 'https://your-railway-app.up.railway.app'; // TODO: replace with your Railway URL
+
+        async function handleSubscribe(e) {
             e.preventDefault();
             const msg = document.getElementById('subscribe-msg');
             const input = document.getElementById('email-input');
-            msg.textContent = 'Thanks for subscribing! We\'ll be in touch.';
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Subscribing...';
+            try {
+                const res = await fetch(API_BASE + '/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: input.value })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    msg.textContent = data.message;
+                    msg.style.color = 'var(--primary-light)';
+                    input.value = '';
+                } else {
+                    msg.textContent = data.detail || 'Something went wrong.';
+                    msg.style.color = '#ef4444';
+                }
+            } catch {
+                msg.textContent = 'Could not connect to server. Try again later.';
+                msg.style.color = '#ef4444';
+            }
             msg.style.display = 'block';
-            input.value = '';
+            btn.disabled = false;
+            btn.textContent = 'Subscribe';
         }
     </script>
 </body>

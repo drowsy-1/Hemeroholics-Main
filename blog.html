@@ -121,66 +121,14 @@
             <p>Breeding insights, growing tips, and explorations at the intersection of daylilies and technology.</p>
         </div>
 
-        <div class="blog-grid">
-            <a href="#" class="blog-card fade-up delay-1">
-                <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, rgba(154,51,184,0.3), rgba(99,112,223,0.2));display:flex;align-items:center;justify-content:center;">
-                    <i class="bi bi-flower1" style="font-size:3rem;color:var(--primary-light);opacity:0.6;"></i>
-                </div>
-                <div class="blog-card-body">
-                    <span class="blog-tag">Breeding</span>
-                    <h2 class="blog-card-title">Using Data to Guide Hybridizing Decisions</h2>
-                    <p class="blog-card-text">How tracking traits across generations with simple spreadsheets can reveal patterns that transform your breeding program.</p>
-                    <div class="blog-card-meta">
-                        <span><i class="bi bi-calendar3"></i> Coming Soon</span>
-                        <span><i class="bi bi-clock"></i> 8 min read</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="blog-card fade-up delay-2">
-                <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, rgba(99,112,223,0.3), rgba(154,51,184,0.15));display:flex;align-items:center;justify-content:center;">
-                    <i class="bi bi-bar-chart-line" style="font-size:3rem;color:var(--accent-light);opacity:0.6;"></i>
-                </div>
-                <div class="blog-card-body">
-                    <span class="blog-tag">Technology</span>
-                    <h2 class="blog-card-title">AI Image Recognition for Daylily Trait Analysis</h2>
-                    <p class="blog-card-text">Exploring how computer vision can help identify and catalog bloom patterns, eye zones, and edge characteristics automatically.</p>
-                    <div class="blog-card-meta">
-                        <span><i class="bi bi-calendar3"></i> Coming Soon</span>
-                        <span><i class="bi bi-clock"></i> 12 min read</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="blog-card fade-up delay-3">
-                <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, rgba(154,51,184,0.2), rgba(99,112,223,0.25));display:flex;align-items:center;justify-content:center;">
-                    <i class="bi bi-sun" style="font-size:3rem;color:var(--primary-light);opacity:0.6;"></i>
-                </div>
-                <div class="blog-card-body">
-                    <span class="blog-tag">Growing Tips</span>
-                    <h2 class="blog-card-title">Season Planning: Maximizing Your Bloom Window</h2>
-                    <p class="blog-card-text">Strategic cultivar selection and garden layout techniques to extend your peak bloom from weeks to months.</p>
-                    <div class="blog-card-meta">
-                        <span><i class="bi bi-calendar3"></i> Coming Soon</span>
-                        <span><i class="bi bi-clock"></i> 6 min read</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="blog-card fade-up delay-1">
-                <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, rgba(99,112,223,0.2), rgba(154,51,184,0.25));display:flex;align-items:center;justify-content:center;">
-                    <i class="bi bi-palette" style="font-size:3rem;color:var(--accent-light);opacity:0.6;"></i>
-                </div>
-                <div class="blog-card-body">
-                    <span class="blog-tag">Deep Dive</span>
-                    <h2 class="blog-card-title">Understanding Ploidy: Diploid vs Tetraploid Breeding</h2>
-                    <p class="blog-card-text">A practical guide to the differences between diploid and tetraploid programs, and why it matters for your goals.</p>
-                    <div class="blog-card-meta">
-                        <span><i class="bi bi-calendar3"></i> Coming Soon</span>
-                        <span><i class="bi bi-clock"></i> 10 min read</span>
-                    </div>
-                </div>
-            </a>
+        <div class="blog-grid" id="blog-grid">
+            <!-- Articles loaded from API; fallback placeholders shown if API unavailable -->
+        </div>
+        <div id="blog-empty" style="display:none;text-align:center;padding:3rem 1.5rem;">
+            <p style="color:var(--text-muted);font-size:1.1rem;">No articles published yet. Check back soon!</p>
+        </div>
+        <div id="blog-loading" class="fade-up visible" style="text-align:center;padding:2rem;">
+            <p style="color:var(--text-muted);">Loading articles...</p>
         </div>
     </main>
 
@@ -201,6 +149,80 @@
         window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
         const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // API base URL — update after Railway deploy
+        const API_BASE = window.location.hostname === 'localhost'
+            ? 'http://localhost:8000'
+            : 'https://your-railway-app.up.railway.app'; // TODO: replace with your Railway URL
+
+        const TAG_ICONS = {
+            'Breeding': 'bi-flower1',
+            'Technology': 'bi-bar-chart-line',
+            'Growing Tips': 'bi-sun',
+            'Deep Dive': 'bi-palette',
+        };
+        const TAG_COLORS = [
+            'rgba(154,51,184,0.3), rgba(99,112,223,0.2)',
+            'rgba(99,112,223,0.3), rgba(154,51,184,0.15)',
+            'rgba(154,51,184,0.2), rgba(99,112,223,0.25)',
+            'rgba(99,112,223,0.2), rgba(154,51,184,0.25)',
+        ];
+
+        function formatDate(iso) {
+            if (!iso) return 'Draft';
+            return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function renderCard(article, i) {
+            const icon = TAG_ICONS[article.tag] || 'bi-journal-text';
+            const colors = TAG_COLORS[i % TAG_COLORS.length];
+            const delay = ['delay-1','delay-2','delay-3'][i % 3];
+            return `
+                <a href="article.html?slug=${encodeURIComponent(article.slug)}" class="blog-card fade-up ${delay}">
+                    <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, ${colors});display:flex;align-items:center;justify-content:center;">
+                        <i class="bi ${icon}" style="font-size:3rem;color:var(--primary-light);opacity:0.6;"></i>
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-tag">${article.tag || 'Article'}</span>
+                        <h2 class="blog-card-title">${article.title}</h2>
+                        <p class="blog-card-text">${article.excerpt}</p>
+                        <div class="blog-card-meta">
+                            <span><i class="bi bi-calendar3"></i> ${formatDate(article.published_at)}</span>
+                            ${article.read_time ? `<span><i class="bi bi-clock"></i> ${article.read_time}</span>` : ''}
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        async function loadArticles() {
+            const grid = document.getElementById('blog-grid');
+            const loading = document.getElementById('blog-loading');
+            const empty = document.getElementById('blog-empty');
+            try {
+                const res = await fetch(API_BASE + '/api/articles');
+                const data = await res.json();
+                loading.style.display = 'none';
+                if (data.articles && data.articles.length > 0) {
+                    grid.innerHTML = data.articles.map((a, i) => renderCard(a, i)).join('');
+                    // Re-observe new elements for animation
+                    grid.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+                } else {
+                    empty.style.display = 'block';
+                }
+            } catch {
+                // API not available — show placeholder cards
+                loading.style.display = 'none';
+                grid.innerHTML = [
+                    { title: 'Using Data to Guide Hybridizing Decisions', slug: '#', excerpt: 'How tracking traits across generations with simple spreadsheets can reveal patterns that transform your breeding program.', tag: 'Breeding', read_time: '8 min read', published_at: null },
+                    { title: 'AI Image Recognition for Daylily Trait Analysis', slug: '#', excerpt: 'Exploring how computer vision can help identify and catalog bloom patterns, eye zones, and edge characteristics automatically.', tag: 'Technology', read_time: '12 min read', published_at: null },
+                    { title: 'Season Planning: Maximizing Your Bloom Window', slug: '#', excerpt: 'Strategic cultivar selection and garden layout techniques to extend your peak bloom from weeks to months.', tag: 'Growing Tips', read_time: '6 min read', published_at: null },
+                    { title: 'Understanding Ploidy: Diploid vs Tetraploid Breeding', slug: '#', excerpt: 'A practical guide to the differences between diploid and tetraploid programs, and why it matters for your goals.', tag: 'Deep Dive', read_time: '10 min read', published_at: null },
+                ].map((a, i) => renderCard(a, i)).join('');
+                grid.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+            }
+        }
+        loadArticles();
     </script>
 </body>
 </html>
