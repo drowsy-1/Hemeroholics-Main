@@ -3,197 +3,724 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hemeroholics - For True Daylily Enthusiasts</title>
+    <title>Hemeroholics — Daylily Breeding Through Data Science & AI</title>
+    <meta name="description" content="Hemeroholics empowers daylily breeders with data science, AI, and modern tools. Explore our collection, read breeding insights, and join a community of passionate daylily enthusiasts.">
+    <meta name="keywords" content="daylily, hemerocallis, daylily breeding, daylily hybridizing, data science, AI, daylily collection, flower breeding tools">
+    <meta name="author" content="Hemeroholics">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hemeroholics.com/">
+    <meta property="og:title" content="Hemeroholics — Daylily Breeding Through Data Science & AI">
+    <meta property="og:description" content="Empowering daylily breeders with data science, AI, and modern tools. From beginners to experts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hemeroholics.com/">
+    <meta property="og:image" content="https://hemeroholics.com/assets/garden.JPG">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hemeroholics — Daylily Breeding Through Data Science & AI">
+    <meta name="twitter:description" content="Empowering daylily breeders with data science, AI, and modern tools.">
+    <meta name="twitter:image" content="https://hemeroholics.com/assets/garden.JPG">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Hemeroholics",
+        "url": "https://hemeroholics.com",
+        "description": "Empowering daylily breeders with data science, AI, and modern tools.",
+        "logo": "https://hemeroholics.com/assets/garden.JPG"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
         :root {
-            --primary-color: #9a33b8;
-            --secondary-color: #6c757d;
-            --text-color: #e9ecef;
-            --background-color: #121212;
-            --card-bg: rgba(30, 30, 30, 0.8);
-            --button-hover: #7d2a94;
+            --primary: #9a33b8;
+            --primary-light: #b44fd4;
+            --accent: #6370df;
+            --accent-light: #8b95f0;
+            --text: #e9ecef;
+            --text-muted: #9ca3af;
+            --bg-deep: #0a0a0f;
+            --bg-surface: rgba(16, 16, 24, 0.85);
+            --bg-card: rgba(22, 22, 35, 0.75);
+            --bg-card-hover: rgba(30, 30, 48, 0.85);
+            --border-subtle: rgba(154, 51, 184, 0.15);
+            --border-glow: rgba(154, 51, 184, 0.35);
+            --glow-sm: 0 0 15px rgba(154, 51, 184, 0.15);
+            --glow-md: 0 0 30px rgba(154, 51, 184, 0.2);
+            --glow-lg: 0 4px 40px rgba(154, 51, 184, 0.25);
+            --radius: 1rem;
+            --radius-lg: 1.25rem;
         }
-        
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url(/assets/garden.JPG);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
+            background-color: var(--bg-deep);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            margin: 0;
+            line-height: 1.6;
         }
-        
-        body::before {
-            content: "";
+
+        /* ── Background layers ── */
+        .bg-garden {
             position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.75);
+            inset: 0;
+            z-index: -2;
+            background: url('assets/garden.JPG') center/cover no-repeat;
+        }
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
             z-index: -1;
-            min-height: 100vh;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 10, 15, 0.88) 0%,
+                rgba(10, 10, 15, 0.82) 40%,
+                rgba(10, 10, 15, 0.92) 100%
+            );
+            backdrop-filter: blur(2px);
         }
-        
-        .container {
-            position: relative;
-            z-index: 1;
-            padding: 2rem 1rem;
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow-x: hidden;
+
+        /* ── Typography ── */
+        .font-display {
+            font-family: 'Cormorant Garamond', serif;
         }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            line-height: 1.15;
         }
-        
-        .site-title {
-            font-size: clamp(2rem, 8vw, 3rem);
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #9a33b8, #6370df);
+
+        /* ── Navigation ── */
+        .nav-main {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.3s ease;
+        }
+        .nav-main.scrolled {
+            background: rgba(10, 10, 15, 0.92);
+        }
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        
-        .tagline {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #b8b8b8;
-        }
-        
-        .about-text {
-            background-color: var(--card-bg);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .link-card {
-            background-color: var(--card-bg);
-            border-radius: 1rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .link-button {
-            display: block;
-            width: 100%;
-            padding: 1.5rem;
-            text-align: center;
-            color: var(--text-color) !important;
-            font-size: 1.25rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, rgba(154, 51, 184, 0.8), rgba(99, 112, 223, 0.8));
-            border: none;
-            transition: background 0.3s ease;
             text-decoration: none;
+            letter-spacing: -0.02em;
         }
-        
-        .link-button:hover {
-            background: linear-gradient(135deg, rgba(154, 51, 184, 0.9), rgba(99, 112, 223, 0.9));
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
-        
-        .link-description {
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-            display: block;
-            color: #b8b8b8;
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
         }
-        
-        .footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #6c757d;
-            font-size: 0.9rem;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: rgba(154, 51, 184, 0.12);
         }
-        
-        @media (min-width: 768px) {
-            .container {
-                padding: 3rem;
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 1px;
+        }
+        .nav-links a i { font-size: 1rem; }
+
+        /* Mobile menu */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-subtle);
+            color: var(--text);
+            padding: 0.4rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-toggle:hover { border-color: var(--border-glow); }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-subtle);
+                padding: 0.75rem 1rem;
+                gap: 0.25rem;
             }
-            
-            .about-text {
-                padding: 2rem;
-            }
-            
-            .link-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1.5rem;
+            .nav-links.open { display: flex; }
+            .nav-links a {
                 width: 100%;
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
             }
         }
+
+        /* ── Hero ── */
+        .hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 3rem;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: clamp(2.75rem, 8vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 50%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+        }
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        .hero-description {
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ── Buttons ── */
+        .btn-glow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow-sm);
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-lg);
+            color: #fff;
+        }
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-ghost:hover {
+            background: rgba(154, 51, 184, 0.1);
+            border-color: var(--primary-light);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── Section ── */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        .section-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 560px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* ── Cards ── */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(154, 51, 184, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .glass-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+            box-shadow: var(--glow-md);
+        }
+        .glass-card:hover::before { opacity: 1; }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, rgba(154, 51, 184, 0.2), rgba(99, 112, 223, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--primary-light);
+            margin-bottom: 1.25rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .card-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: gap 0.2s ease, color 0.2s ease;
+        }
+        .card-link:hover {
+            color: var(--accent-light);
+            gap: 0.6rem;
+        }
+
+        /* ── Newsletter ── */
+        .newsletter {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+        .newsletter-card {
+            background: linear-gradient(135deg, rgba(154, 51, 184, 0.12), rgba(99, 112, 223, 0.08));
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .newsletter-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(154, 51, 184, 0.08), transparent 50%);
+            pointer-events: none;
+        }
+        .newsletter-title {
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        .newsletter-text {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 440px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .newsletter-input {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .newsletter-input::placeholder { color: var(--text-muted); }
+        .newsletter-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(154, 51, 184, 0.15);
+        }
+        @media (max-width: 480px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+            .newsletter-card { padding: 2rem 1.25rem; }
+        }
+
+        /* ── Features row ── */
+        .features-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+        .feature-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .feature-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+        @media (max-width: 480px) {
+            .features-strip {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-top: 2.5rem;
+            }
+            .feature-item { padding: 1rem; }
+        }
+
+        /* ── Divider ── */
+        .divider {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .divider hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text); }
+
+        /* ── Animations ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="site-title">Hemeroholics</h1>
-            <p class="tagline">For the true daylily fanatics</p>
-        </header>
-        
-        <div class="about-text">
-            <p>We are passionate daylily enthusiasts leveraging data science, AI, and web development to make daylily breeding more accessible. Our mission is to empower breeders with tools for better informed decisions while ensuring resources are available to everyone, from beginners to experts.</p>
+    <div class="bg-garden" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-main" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-brand">Hemeroholics</a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="bi bi-list"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
+                <li><a href="blog.html"><i class="bi bi-journal-text"></i> Blog</a></li>
+                <li><a href="projects.html"><i class="bi bi-lightbulb"></i> Projects</a></li>
+                <li><a href="tools.html"><i class="bi bi-tools"></i> Tools</a></li>
+            </ul>
         </div>
-        
-        <div class="link-grid">
-            <div class="link-card">
-                <a href="https://ricedaylilies.hemeroholics.com/" class="link-button">
-                    Rice Daylilies
-                    <span class="link-description">My most advanced site</span>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero" aria-label="Introduction">
+            <h1 class="hero-title fade-up">Hemeroholics</h1>
+            <p class="hero-sub fade-up delay-1">Where data science meets the garden</p>
+            <p class="hero-description fade-up delay-2">
+                We're passionate daylily enthusiasts leveraging data science, AI, and modern web tools to make daylily breeding more accessible &mdash; empowering breeders from beginners to experts with better-informed decisions.
+            </p>
+            <div class="hero-actions fade-up delay-3">
+                <a href="https://gallery.hemeroholics.com/" class="btn-glow" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-images"></i> View My Collection
+                </a>
+                <a href="blog.html" class="btn-ghost">
+                    <i class="bi bi-arrow-right"></i> Read the Blog
                 </a>
             </div>
-            
-            <div class="link-card">
-                <a href="mailto:lovetrinity315@gmail.com" class="link-button">
-                    <i class="bi bi-envelope-fill me-2"></i>Contact Me
-                    <span class="link-description">via Email</span>
-                </a>
+
+            <div class="features-strip fade-up delay-3">
+                <div class="feature-item">
+                    <div class="feature-num">AI</div>
+                    <div class="feature-label">Powered Tools</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-num">Data</div>
+                    <div class="feature-label">Driven Breeding</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-num">Open</div>
+                    <div class="feature-label">Access Resources</div>
+                </div>
             </div>
-            
-            <div class="link-card">
-                <a href="https://hemeroholics.store/" class="link-button">
-                    <i class="bi bi-shop me-2"></i>Buy or Trade
-                    <span class="link-description">Shop my collection</span>
-                </a>
+        </section>
+
+        <div class="divider"><hr></div>
+
+        <!-- Explore Section -->
+        <section class="section" aria-label="Explore">
+            <p class="section-label fade-up">Explore</p>
+            <h2 class="section-title fade-up delay-1">What We're Building</h2>
+            <p class="section-subtitle fade-up delay-2">Tools and resources designed to push daylily breeding forward through technology and open collaboration.</p>
+
+            <div class="card-grid">
+                <article class="glass-card fade-up delay-1">
+                    <div class="card-icon"><i class="bi bi-images"></i></div>
+                    <h3 class="card-title">Photo Gallery</h3>
+                    <p class="card-text">Browse our curated collection of daylily varieties with detailed cultivar information and high-quality photography.</p>
+                    <a href="https://gallery.hemeroholics.com/" class="card-link" target="_blank" rel="noopener noreferrer">
+                        Explore collection <i class="bi bi-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="glass-card fade-up delay-2">
+                    <div class="card-icon"><i class="bi bi-journal-richtext"></i></div>
+                    <h3 class="card-title">Breeding Blog</h3>
+                    <p class="card-text">Insights on hybridizing strategies, data-driven selection techniques, and lessons from the garden.</p>
+                    <a href="blog.html" class="card-link">
+                        Read articles <i class="bi bi-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="glass-card fade-up delay-3">
+                    <div class="card-icon"><i class="bi bi-cpu"></i></div>
+                    <h3 class="card-title">AI Tools</h3>
+                    <p class="card-text">We're developing AI-powered tools to help breeders analyze traits, predict outcomes, and track lineage data.</p>
+                    <a href="tools.html" class="card-link">
+                        Coming soon <i class="bi bi-arrow-right"></i>
+                    </a>
+                </article>
             </div>
-            
-            <div class="link-card">
-                <a href="https://gallery.hemeroholics.com/" class="link-button">
-                    <i class="bi bi-images me-2"></i>My Collection
-                    <span class="link-description">View photo gallery</span>
-                </a>
+        </section>
+
+        <div class="divider"><hr></div>
+
+        <!-- Newsletter -->
+        <section class="newsletter" aria-label="Newsletter signup">
+            <div class="newsletter-card fade-up">
+                <h2 class="newsletter-title">Stay in the Loop</h2>
+                <p class="newsletter-text">Get updates on new tools, blog posts, and breeding insights delivered to your inbox. No spam, just daylilies.</p>
+                <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+                    <label for="email-input" class="visually-hidden">Email address</label>
+                    <input
+                        type="email"
+                        id="email-input"
+                        class="newsletter-input"
+                        placeholder="your@email.com"
+                        required
+                        aria-label="Email address"
+                    >
+                    <button type="submit" class="btn-glow">Subscribe</button>
+                </form>
+                <p id="subscribe-msg" style="margin-top:1rem;font-size:0.85rem;color:var(--primary-light);display:none;position:relative;"></p>
             </div>
-        </div>
-        
-        <footer class="footer">
-            <p>© 2025 Hemeroholics - Cultivating beauty through data and passion</p>
-        </footer>
-    </div>
-    
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <p class="footer-copy">&copy; 2025 Hemeroholics &mdash; Cultivating beauty through data and passion</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="blog.html">Blog</a>
+            <a href="projects.html">Projects</a>
+            <a href="tools.html">Tools</a>
+        </nav>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script>
+        // Mobile nav toggle
+        const toggle = document.querySelector('.nav-toggle');
+        const links = document.querySelector('.nav-links');
+        toggle.addEventListener('click', () => {
+            const open = links.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open);
+        });
+
+        // Sticky nav background on scroll
+        const nav = document.querySelector('.nav-main');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Intersection Observer for fade-up animations
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        observer.unobserve(e.target);
+                    }
+                });
+            },
+            { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Newsletter subscribe handler (placeholder)
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const msg = document.getElementById('subscribe-msg');
+            const input = document.getElementById('email-input');
+            msg.textContent = 'Thanks for subscribing! We\'ll be in touch.';
+            msg.style.display = 'block';
+            input.value = '';
+        }
+    </script>
 </body>
 </html>
