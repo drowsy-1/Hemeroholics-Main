@@ -1,3 +1,5 @@
+import asyncio
+import logging
 import os
 from contextlib import asynccontextmanager
 
@@ -11,11 +13,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers import subscribers, articles
 
+logger = logging.getLogger("hemeroholics")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    # Retry DB connection — Railway networking can take a moment
+    for attempt in range(5):
+        try:
+            async with engine.begin() as conn:
+                await conn.run_sync(Base.metadata.create_all)
+            logger.info("Database connected and tables created.")
+            break
+        except Exception as e:
+            logger.warning(f"DB connection attempt {attempt + 1}/5 failed: {e}")
+            if attempt < 4:
+                await asyncio.sleep(2 ** attempt)
+            else:
+                logger.error("Could not connect to database after 5 attempts. Starting without DB.")
     yield
     await engine.dispose()
 
