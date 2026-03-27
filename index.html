@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hemeroholics — Daylily Breeding Through Data Science & AI</title>
-    <meta name="description" content="Hemeroholics empowers daylily breeders with data science, AI, and modern tools. Explore our collection, read breeding insights, and join a community of passionate daylily enthusiasts.">
-    <meta name="keywords" content="daylily, hemerocallis, daylily breeding, daylily hybridizing, data science, AI, daylily collection, flower breeding tools">
+    <title>Hemeroholics — Data-Driven Daylily Breeding</title>
+    <meta name="description" content="Hemeroholics empowers daylily breeders with data science and modern tools. Explore our collection, read breeding insights, and join a community of passionate daylily enthusiasts.">
+    <meta name="keywords" content="daylily, hemerocallis, daylily breeding, daylily hybridizing, data science, data-driven, daylily collection, flower breeding tools">
     <meta name="author" content="Hemeroholics">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hemeroholics.com/">
-    <meta property="og:title" content="Hemeroholics — Daylily Breeding Through Data Science & AI">
-    <meta property="og:description" content="Empowering daylily breeders with data science, AI, and modern tools. From beginners to experts.">
+    <meta property="og:title" content="Hemeroholics — Data-Driven Daylily Breeding">
+    <meta property="og:description" content="Empowering daylily breeders with data science and modern tools. From beginners to experts.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hemeroholics.com/">
     <meta property="og:image" content="https://hemeroholics.com/assets/garden.JPG">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hemeroholics — Daylily Breeding Through Data Science & AI">
-    <meta name="twitter:description" content="Empowering daylily breeders with data science, AI, and modern tools.">
+    <meta name="twitter:title" content="Hemeroholics — Data-Driven Daylily Breeding">
+    <meta name="twitter:description" content="Empowering daylily breeders with data science and modern tools.">
     <meta name="twitter:image" content="https://hemeroholics.com/assets/garden.JPG">
 
     <script type="application/ld+json">
@@ -25,7 +25,7 @@
         "@type": "Organization",
         "name": "Hemeroholics",
         "url": "https://hemeroholics.com",
-        "description": "Empowering daylily breeders with data science, AI, and modern tools.",
+        "description": "Empowering daylily breeders with data science and modern tools.",
         "logo": "https://hemeroholics.com/assets/garden.JPG"
     }
     </script>
@@ -400,16 +400,17 @@
         .newsletter {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 3rem 1.5rem 4rem;
+            padding: 4rem 1.5rem 5rem;
         }
         .newsletter-card {
-            background: linear-gradient(135deg, rgba(154, 51, 184, 0.12), rgba(99, 112, 223, 0.08));
-            border: 1px solid var(--border-subtle);
+            background: linear-gradient(135deg, rgba(154, 51, 184, 0.18), rgba(99, 112, 223, 0.12));
+            border: 1px solid var(--border-glow);
             border-radius: var(--radius-lg);
-            padding: 3rem 2rem;
+            padding: 3.5rem 2rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--glow-md);
         }
         .newsletter-card::before {
             content: '';
@@ -418,21 +419,62 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 20%, rgba(154, 51, 184, 0.08), transparent 50%);
+            background: radial-gradient(circle at 30% 20%, rgba(154, 51, 184, 0.12), transparent 50%);
             pointer-events: none;
         }
+        .newsletter-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(154, 51, 184, 0.2), rgba(99, 112, 223, 0.2));
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: var(--primary-light);
+            margin: 0 auto 1.5rem;
+            position: relative;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(154, 51, 184, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(154, 51, 184, 0.3); }
+        }
+        .newsletter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 1rem;
+            background: rgba(154, 51, 184, 0.12);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2rem;
+            color: var(--primary-light);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
         .newsletter-title {
-            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
             margin-bottom: 0.75rem;
             position: relative;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 60%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .newsletter-text {
             color: var(--text-muted);
             margin-bottom: 2rem;
-            max-width: 460px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
             position: relative;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
         .newsletter-form {
             display: flex;
@@ -583,7 +625,7 @@
             <h1 class="hero-title fade-up">Hemeroholics</h1>
             <p class="hero-sub fade-up delay-1">Where data science meets the garden</p>
             <p class="hero-description fade-up delay-2">
-                We're passionate daylily enthusiasts leveraging data science, AI, and modern web tools to make daylily breeding more accessible &mdash; empowering breeders from beginners to experts with better-informed decisions.
+                We're passionate daylily enthusiasts leveraging data science and modern web tools to make daylily breeding more accessible &mdash; empowering breeders from beginners to experts with data-driven decisions.
             </p>
             <div class="hero-actions fade-up delay-3">
                 <a href="https://gallery.hemeroholics.com/" class="btn-glow" target="_blank" rel="noopener noreferrer">
@@ -596,8 +638,8 @@
 
             <div class="features-strip fade-up delay-3">
                 <div class="feature-item">
-                    <div class="feature-num">AI</div>
-                    <div class="feature-label">Powered Tools</div>
+                    <div class="feature-num">Smart</div>
+                    <div class="feature-label">Breeding Tools</div>
                 </div>
                 <div class="feature-item">
                     <div class="feature-num">Data</div>
@@ -639,8 +681,8 @@
 
                 <article class="glass-card fade-up delay-3">
                     <div class="card-icon"><i class="bi bi-cpu"></i></div>
-                    <h3 class="card-title">AI Tools</h3>
-                    <p class="card-text">We're developing AI-powered tools to help breeders analyze traits, predict outcomes, and track lineage data.</p>
+                    <h3 class="card-title">Breeding Tools</h3>
+                    <p class="card-text">We're developing data-driven tools to help breeders analyze traits, predict outcomes, and track lineage data.</p>
                     <a href="tools.html" class="card-link">
                         Coming soon <i class="bi bi-arrow-right"></i>
                     </a>
@@ -653,8 +695,10 @@
         <!-- Newsletter -->
         <section class="newsletter" aria-label="Newsletter signup">
             <div class="newsletter-card fade-up">
+                <div class="newsletter-icon"><i class="bi bi-envelope-paper"></i></div>
+                <div class="newsletter-badge"><i class="bi bi-star-fill"></i> Join the Community</div>
                 <h2 class="newsletter-title">Stay in the Loop</h2>
-                <p class="newsletter-text">Get updates on new tools, blog posts, and breeding insights delivered to your inbox. No spam, just daylilies.</p>
+                <p class="newsletter-text">Get updates on new tools, blog posts, and breeding insights delivered to your inbox. Be the first to know when new features drop. No spam, just daylilies.</p>
                 <form class="newsletter-form" onsubmit="handleSubscribe(event)">
                     <label for="email-input" class="visually-hidden">Email address</label>
                     <input
@@ -674,7 +718,7 @@
 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
-        <p class="footer-copy">&copy; 2025 Hemeroholics &mdash; Cultivating beauty through data and passion</p>
+        <p class="footer-copy">&copy; 2026 Hemeroholics &mdash; Cultivating beauty through data and passion</p>
         <nav class="footer-links" aria-label="Footer navigation">
             <a href="blog.html">Blog</a>
             <a href="projects.html">Projects</a>

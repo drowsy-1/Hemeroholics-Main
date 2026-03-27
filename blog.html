@@ -91,6 +91,65 @@
         .footer-links a { font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
         .footer-links a:hover { color: var(--text); }
 
+        /* Coming soon */
+        .coming-soon-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 6rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .coming-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(154,51,184,0.15), rgba(99,112,223,0.15));
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent-light);
+            margin-bottom: 2rem;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(154,51,184,0.1); }
+            50% { box-shadow: 0 0 40px rgba(154,51,184,0.25); }
+        }
+        .coming-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 60%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        .coming-text {
+            color: var(--text-muted);
+            max-width: 520px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        .coming-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            background: rgba(154,51,184,0.1);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2rem;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .coming-badge i { animation: spin 4s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
         .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; }
@@ -124,8 +183,19 @@
         <div class="blog-grid" id="blog-grid">
             <!-- Articles loaded from API; fallback placeholders shown if API unavailable -->
         </div>
-        <div id="blog-empty" style="display:none;text-align:center;padding:3rem 1.5rem;">
-            <p style="color:var(--text-muted);font-size:1.1rem;">No articles published yet. Check back soon!</p>
+        <div id="blog-empty" style="display:none;">
+            <div class="coming-soon-wrap">
+                <div class="coming-icon fade-up">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+                <h2 class="coming-title fade-up delay-1">Articles Coming Soon</h2>
+                <p class="coming-text fade-up delay-1">
+                    We're working on breeding insights, growing tips, and data-driven guides for the daylily community. Check back soon!
+                </p>
+                <div class="coming-badge fade-up delay-2">
+                    <i class="bi bi-gear"></i> Coming Soon
+                </div>
+            </div>
         </div>
         <div id="blog-loading" class="fade-up visible" style="text-align:center;padding:2rem;">
             <p style="color:var(--text-muted);">Loading articles...</p>
@@ -133,7 +203,7 @@
     </main>
 
     <footer class="footer" role="contentinfo">
-        <p class="footer-copy">&copy; 2025 Hemeroholics &mdash; Cultivating beauty through data and passion</p>
+        <p class="footer-copy">&copy; 2026 Hemeroholics &mdash; Cultivating beauty through data and passion</p>
         <nav class="footer-links" aria-label="Footer navigation">
             <a href="index.html">Home</a>
             <a href="projects.html">Projects</a>
@@ -209,17 +279,13 @@
                     grid.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
                 } else {
                     empty.style.display = 'block';
+                    empty.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
                 }
             } catch {
-                // API not available — show placeholder cards
+                // API not available — show coming soon
                 loading.style.display = 'none';
-                grid.innerHTML = [
-                    { title: 'Using Data to Guide Hybridizing Decisions', slug: '#', excerpt: 'How tracking traits across generations with simple spreadsheets can reveal patterns that transform your breeding program.', tag: 'Breeding', read_time: '8 min read', published_at: null },
-                    { title: 'AI Image Recognition for Daylily Trait Analysis', slug: '#', excerpt: 'Exploring how computer vision can help identify and catalog bloom patterns, eye zones, and edge characteristics automatically.', tag: 'Technology', read_time: '12 min read', published_at: null },
-                    { title: 'Season Planning: Maximizing Your Bloom Window', slug: '#', excerpt: 'Strategic cultivar selection and garden layout techniques to extend your peak bloom from weeks to months.', tag: 'Growing Tips', read_time: '6 min read', published_at: null },
-                    { title: 'Understanding Ploidy: Diploid vs Tetraploid Breeding', slug: '#', excerpt: 'A practical guide to the differences between diploid and tetraploid programs, and why it matters for your goals.', tag: 'Deep Dive', read_time: '10 min read', published_at: null },
-                ].map((a, i) => renderCard(a, i)).join('');
-                grid.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+                empty.style.display = 'block';
+                empty.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
             }
         }
         loadArticles();
